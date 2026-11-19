@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Petualangan Makna Kata: Denotatif vs Konotatif (Kelas 6 SD)</title>
+  <!-- Menggunakan Google Fonts Fredoka, Comic Neue & Poppins agar ceria dan mudah dibaca siswa SD -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Fredoka:wght@500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Pengaturan Font Utama */
+    body {
+      font-family: 'Poppins', 'Comic Neue', sans-serif;
+      background: linear-gradient(135deg, #e0f2fe 0%, #fef9c3 50%, #dcfce7 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, .font-display {
+      font-family: 'Fredoka', 'Comic Neue', cursive, sans-serif;
+    }
+
+    h1, h2, h3, .font-display {
+      font-family: 'Fredoka', 'Comic Sans MS', cursive, sans-serif;
+    }
+
+    /* Animasi Latar Awan & Bintang Mengambang */
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-12px) rotate(3deg); }
+    }
+
+    @keyframes pulsePop {
+      0% { transform: scale(0.95); opacity: 0; }
+      70% { transform: scale(1.02); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes bounceSlight {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    @keyframes shakeWrong {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-8px); }
+      40% { transform: translateX(8px); }
+      60% { transform: translateX(-6px); }
+      80% { transform: translateX(6px); }
+    }
+
+    .animate-float {
+      animation: floatSlow 5s ease-in-out infinite;
+    }
+
+    .animate-pop {
+      animation: pulsePop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    .animate-bounce-slight {
+      animation: bounceSlight 1.5s infinite ease-in-out;
+    }
+
+    .animate-shake {
+      animation: shakeWrong 0.45s ease-in-out;
+    }
+
+    /* Gaya Tombol 3D Ramah Anak */
+    .btn-3d {
+      transition: all 0.15s ease;
+      box-shadow: 0 5px 0 rgba(0, 0, 0, 0.18);
+    }
+    .btn-3d:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 0 rgba(0, 0, 0, 0.18);
+    }
+    .btn-3d:active:not(:disabled) {
+      transform: translateY(3px);
+      box-shadow: 0 2px 0 rgba(0, 0, 0, 0.18);
+    }
+
+    /* Gaya Pilihan Jawaban */
+    .option-card {
+      transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+      border-bottom-width: 4px;
+    }
+    .option-card:hover:not(:disabled) {
+      transform: translateY(-2px);
+    }
+    .option-card:active:not(:disabled) {
+      transform: translateY(2px);
+      border-bottom-width: 2px;
+    }
+
+    /* Highlight Kata dalam Soal */
+    .highlight-word {
+      background-color: #fef08a;
+      color: #854d0e;
+      padding: 2px 8px;
+      border-radius: 8px;
+      border-bottom: 3px solid #eab308;
+      font-weight: 800;
+      display: inline-block;
+    }
+
+    /* Confetti Canvas */
+    #confetti-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 50;
+    }
+  </style>
+</head>
+<body class="text-slate-800 selection:bg-amber-200 selection:text-amber-900">
+
+  <!-- Canvas untuk efek perayaan confetti -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Dekorasi Latar Belakang -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden z-0 opacity-60">
+    <div class="absolute top-8 left-6 text-5xl animate-float" style="animation-delay: 0s;">☁️</div>
+    <div class="absolute top-20 right-10 text-4xl animate-float" style="animation-delay: 1.5s;">✨</div>
+    <div class="absolute bottom-16 left-10 text-5xl animate-float" style="animation-delay: 2.5s;">📚</div>
+    <div class="absolute bottom-12 right-8 text-5xl animate-float" style="animation-delay: 1s;">✏️</div>
+  </div>
+
+  <!-- Header Navigasi Atas -->
+  <header class="relative z-10 max-w-4xl mx-auto px-4 pt-4 pb-2 flex items-center justify-between">
+    <div class="flex items-center gap-2.5 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-2xl shadow-sm border-2 border-sky-200">
+      <span class="text-2xl">🧭</span>
+      <div>
+        <span class="text-xs font-extrabold uppercase tracking-wider text-sky-600 block">Bahasa Indonesia • Kelas 6 SD</span>
+        <span class="font-display font-bold text-slate-800 text-sm sm:text-base">Petualangan Makna Kata</span>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <!-- Tombol Pengaturan Acak Soal (Hanya tampil di layar awal) -->
+      <button id="btn-sound" onclick="toggleSound()" title="Suara Efek"
+        class="btn-3d bg-white hover:bg-amber-50 text-slate-700 border-2 border-amber-300 px-3.5 py-2 rounded-2xl font-bold text-sm flex items-center gap-1.5 cursor-pointer">
+        <span id="sound-icon" class="text-lg">🔊</span>
+        <span class="hidden sm:inline" id="sound-text">Suara Aktif</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Kontainer Utama -->
+  <main class="relative z-10 max-w-4xl mx-auto px-4 py-4 pb-12">
+
+    <!-- ========================================== -->
+    <!-- 1. LAYAR AWAL (START SCREEN)               -->
+    <!-- ========================================== -->
+    <section id="screen-start" class="animate-pop">
+      <div class="bg-white rounded-3xl shadow-xl border-4 border-sky-300 overflow-hidden">
+        <!-- Banner Judul -->
+        <div class="bg-gradient-to-r from-sky-500 via-blue-500 to-indigo-500 p-6 sm:p-8 text-center text-white relative">
+          <div class="inline-block bg-amber-300 text-amber-950 font-extrabold text-xs sm:text-sm px-4 py-1.5 rounded-full mb-3 shadow-sm uppercase tracking-wide">
+            🚀 Misi Bahasa Indonesia Kelas 6
+          </div>
+          <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold drop-shadow-sm mb-2 leading-tight">
+            Petualangan Makna Kata
+          </h1>
+          <p class="text-lg sm:text-xl font-semibold text-sky-100">
+            Menguak Rahasia Makna Denotatif &amp; Makna Konotatif
+          </p>
+        </div>
+
+        <div class="p-6 sm:p-8 space-y-6">
+          <!-- Pengantar Materi Singkat & Mudah Dipahami -->
+          <div>
+            <h2 class="text-xl font-bold text-slate-800 mb-3 flex items-center gap-2">
+              <span class="text-2xl">💡</span> Bekal Sebelum Berpetualang:
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <!-- Kartu Denotatif -->
+              <div class="bg-emerald-50 border-2 border-emerald-300 rounded-2xl p-4 sm:p-5 relative">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="bg-emerald-500 text-white w-8 h-8 rounded-xl flex items-center justify-center font-bold text-lg shadow-sm">D</span>
+                  <h3 class="text-lg sm:text-xl font-bold text-emerald-800">Makna Denotatif</h3>
+                </div>
+                <p class="text-slate-700 text-sm sm:text-base leading-relaxed mb-3">
+                  Adalah <strong class="text-emerald-700">makna sebenarnya</strong> atau makna lugas sesuai dengan yang tertulis di kamus (tidak memiliki makna kiasan).
+                </p>
+                <div class="bg-white/90 rounded-xl p-3 border border-emerald-200 text-sm">
+                  <span class="font-bold text-emerald-700 block mb-0.5">Contoh:</span>
+                  “Adik menggigit <span class="font-extrabold text-emerald-800 underline">kambing hitam</span> yang baru dibeli Ayah dari peternakan.” <br/>
+                  <span class="text-xs text-slate-500 italic">(Artinya: memang hewan kambing yang bulunya berwarna hitam)</span>
+                </div>
+              </div>
+
+              <!-- Kartu Konotatif -->
+              <div class="bg-amber-50 border-2 border-amber-300 rounded-2xl p-4 sm:p-5 relative">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="bg-amber-500 text-white w-8 h-8 rounded-xl flex items-center justify-center font-bold text-lg shadow-sm">K</span>
+                  <h3 class="text-lg sm:text-xl font-bold text-amber-800">Makna Konotatif</h3>
+                </div>
+                <p class="text-slate-700 text-sm sm:text-base leading-relaxed mb-3">
+                  Adalah <strong class="text-amber-700">makna kiasan</strong> atau makna tidak sebenarnya yang mengandung nilai rasa atau ungkapan tertentu.
+                </p>
+                <div class="bg-white/90 rounded-xl p-3 border border-amber-200 text-sm">
+                  <span class="font-bold text-amber-700 block mb-0.5">Contoh:</span>
+                  “Dalam masalah itu, Roni dijadikan <span class="font-extrabold text-amber-800 underline">kambing hitam</span> oleh teman-temannya.” <br/>
+                  <span class="text-xs text-slate-500 italic">(Artinya: orang yang dipersalahkan atas kesalahan orang lain)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Form Nama & Pengaturan Mulai -->
+          <div class="bg-sky-50 border-2 border-sky-200 rounded-2xl p-5 sm:p-6">
+            <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 items-end">
+              <div class="sm:col-span-7">
+                <label for="player-name" class="block text-sm font-extrabold text-sky-900 mb-1.5">
+                  🧑‍🎓 Nama Petualang (Opsional):
+                </label>
+                <input type="text" id="player-name" maxlength="25" placeholder="Ketik namamu di sini... (contoh: Budi)"
+                  class="w-full px-4 py-3 rounded-xl border-2 border-sky-300 focus:border-sky-500 focus:outline-none text-base font-bold text-slate-800 bg-white shadow-inner" />
+              </div>
+
+              <div class="sm:col-span-5">
+                <label class="flex items-center gap-2.5 bg-white px-4 py-3 rounded-xl border-2 border-sky-200 cursor-pointer select-none hover:bg-sky-100/50 transition">
+                  <input type="checkbox" id="shuffle-toggle" checked class="w-5 h-5 accent-sky-600 rounded cursor-pointer" />
+                  <span class="text-sm font-bold text-slate-700">Acak Urutan Soal</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="mt-5 flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-sky-200">
+              <div class="flex items-center gap-3 text-sm font-bold text-slate-600">
+                <span class="bg-white px-3 py-1.5 rounded-xl border border-sky-200">📝 20 Butir Soal</span>
+                <span class="bg-white px-3 py-1.5 rounded-xl border border-sky-200">⭐ Skor Maks: 100</span>
+              </div>
+
+              <button onclick="startGame()"
+                class="w-full sm:w-auto btn-3d bg-gradient-to-r from-emerald-500 to-green-500 hover:from-emerald-400 hover:to-green-400 text-white font-display font-bold text-xl px-8 py-3.5 rounded-2xl flex items-center justify-center gap-2 cursor-pointer">
+                <span>Mulai Bermain</span>
+                <span class="text-2xl">🚀</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 2. LAYAR PERMAINAN (QUIZ SCREEN)           -->
+    <!-- ========================================== -->
+    <section id="screen-quiz" class="hidden">
+      <!-- Bar Status Atas: Progres, Kombo, Skor -->
+      <div class="bg-white rounded-3xl shadow-md border-2 border-sky-200 p-4 mb-4">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+          <!-- Nomor Soal -->
+          <div class="flex items-center gap-2">
+            <span class="bg-sky-500 text-white font-display font-bold px-3.5 py-1 rounded-xl text-sm sm:text-base shadow-sm">
+              Soal <span id="q-current">1</span> dari <span id="q-total">20</span>
+            </span>
+            <span id="q-category-badge" class="hidden sm:inline-block bg-indigo-50 text-indigo-700 border border-indigo-200 font-bold text-xs px-3 py-1 rounded-xl">
+              Identifikasi Makna
+            </span>
+          </div>
+
+          <!-- Kombo & Skor -->
+          <div class="flex items-center gap-2 sm:gap-3">
+            <!-- Indikator Streak / Kombo -->
+            <div id="streak-badge" class="bg-orange-100 border border-orange-300 text-orange-700 px-3 py-1 rounded-xl font-extrabold text-xs sm:text-sm flex items-center gap-1 transition-all">
+              <span>🔥 Kombo:</span>
+              <span id="streak-count">0</span>
+            </div>
+
+            <!-- Indikator Skor -->
+            <div class="bg-amber-100 border border-amber-300 text-amber-900 px-3.5 py-1 rounded-xl font-extrabold text-sm sm:text-base flex items-center gap-1.5">
+              <span>⭐ Skor:</span>
+              <span id="score-display" class="text-amber-700 text-base sm:text-lg">0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="w-full bg-slate-100 h-3.5 rounded-full overflow-hidden border border-slate-200 p-0.5">
+          <div id="progress-bar" class="bg-gradient-to-r from-sky-400 via-blue-500 to-emerald-400 h-full rounded-full transition-all duration-500" style="width: 5%;"></div>
+        </div>
+      </div>
+
+      <!-- Kartu Soal Utama -->
+      <div id="question-card" class="bg-white rounded-3xl shadow-xl border-4 border-sky-300 p-5 sm:p-8 animate-pop">
+        <!-- Pertanyaan & Tombol Ulangi Suara -->
+        <div class="mb-6">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <div class="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider text-sky-600 bg-sky-50 px-3 py-1.5 rounded-xl border border-sky-200">
+              <span>📖</span> <span id="q-type-label">Pertanyaan</span>
+            </div>
+
+            <button type="button" onclick="replayQuestionAudio()"
+              class="btn-3d bg-amber-100 hover:bg-amber-200 text-amber-900 border-2 border-amber-300 text-xs sm:text-sm font-extrabold px-3.5 py-1.5 rounded-xl flex items-center gap-1.5 cursor-pointer">
+              <span>🗣️</span>
+              <span>Dengarkan Soal Lagi</span>
+            </button>
+          </div>
+          <h2 id="question-text" class="text-lg sm:text-2xl font-bold text-slate-800 leading-relaxed">
+            Memuat soal...
+          </h2>
+        </div>
+
+        <!-- Pilihan Jawaban (A, B, C, D) -->
+        <div id="options-container" class="grid grid-cols-1 gap-3.5">
+          <!-- Diisi lewat JavaScript -->
+        </div>
+
+        <!-- Kotak Umpan Balik & Pembahasan (Muncul setelah menjawab) -->
+        <div id="feedback-box" class="hidden mt-6 rounded-2xl p-5 border-2 animate-pop">
+          <div class="flex items-start gap-3">
+            <div id="feedback-icon" class="text-3xl sm:text-4xl select-none">🎉</div>
+            <div class="flex-1">
+              <h3 id="feedback-title" class="text-lg sm:text-xl font-display font-bold mb-1">
+                Hebat! Jawabanmu Benar!
+              </h3>
+              <div class="bg-white/80 rounded-xl p-3.5 border border-black/10 text-slate-700 text-sm sm:text-base leading-relaxed mt-2">
+                <span class="font-extrabold text-slate-900 block mb-0.5">💡 Pembahasan Singkat:</span>
+                <p id="feedback-explanation">Penjelasan soal akan muncul di sini.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-5 flex justify-end">
+            <button id="btn-next" onclick="nextQuestion()"
+              class="w-full sm:w-auto btn-3d bg-sky-500 hover:bg-sky-400 text-white font-display font-bold text-lg px-7 py-3 rounded-2xl flex items-center justify-center gap-2 cursor-pointer">
+              <span id="btn-next-text">Soal Berikutnya</span>
+              <span>➡️</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 3. LAYAR HASIL AKHIR (RESULT SCREEN)       -->
+    <!-- ========================================== -->
+    <section id="screen-result" class="hidden animate-pop">
+      <div class="bg-white rounded-3xl shadow-xl border-4 border-amber-300 overflow-hidden">
+        <!-- Header Hasil -->
+        <div class="bg-gradient-to-r from-amber-400 via-yellow-400 to-orange-400 p-6 sm:p-8 text-center text-slate-900 relative">
+          <div id="result-trophy" class="text-6xl sm:text-7xl mb-2 animate-bounce-slight">🏆</div>
+          <div class="inline-block bg-white/90 text-amber-900 font-extrabold text-xs sm:text-sm px-4 py-1 rounded-full mb-2 shadow-sm">
+            Petualangan Selesai!
+          </div>
+          <h1 id="result-title" class="text-2xl sm:text-4xl font-bold text-slate-900 mb-1">
+            Master Bahasa Indonesia!
+          </h1>
+          <p class="text-base sm:text-lg font-bold text-amber-950">
+            Selamat, <span id="result-player-name" class="underline decoration-2">Petualang Kata</span>!
+          </p>
+        </div>
+
+        <div class="p-6 sm:p-8 space-y-6">
+          <!-- Statistik Nilai -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 text-center">
+            <div class="bg-sky-50 border-2 border-sky-200 rounded-2xl p-4">
+              <span class="text-xs font-extrabold uppercase text-sky-600 block mb-1">Skor Akhir</span>
+              <span id="result-score" class="text-3xl sm:text-4xl font-display font-bold text-sky-700">100</span>
+              <span class="text-xs font-bold text-slate-500 block">dari 100 poin</span>
+            </div>
+
+            <div class="bg-emerald-50 border-2 border-emerald-200 rounded-2xl p-4">
+              <span class="text-xs font-extrabold uppercase text-emerald-600 block mb-1">Jawaban Benar</span>
+              <span id="result-correct" class="text-3xl sm:text-4xl font-display font-bold text-emerald-600">20</span>
+              <span class="text-xs font-bold text-slate-500 block">dari 20 soal</span>
+            </div>
+
+            <div class="bg-rose-50 border-2 border-rose-200 rounded-2xl p-4">
+              <span class="text-xs font-extrabold uppercase text-rose-600 block mb-1">Jawaban Salah</span>
+              <span id="result-wrong" class="text-3xl sm:text-4xl font-display font-bold text-rose-600">0</span>
+              <span class="text-xs font-bold text-slate-500 block">butir soal</span>
+            </div>
+
+            <div class="bg-orange-50 border-2 border-orange-200 rounded-2xl p-4">
+              <span class="text-xs font-extrabold uppercase text-orange-600 block mb-1">Kombo Terbaik</span>
+              <span id="result-max-streak" class="text-3xl sm:text-4xl font-display font-bold text-orange-600">0</span>
+              <span class="text-xs font-bold text-slate-500 block">benar beruntun</span>
+            </div>
+          </div>
+
+          <!-- Pesan Motivasi -->
+          <div id="result-message-box" class="bg-indigo-50 border-2 border-indigo-200 rounded-2xl p-4 text-center text-indigo-900 font-bold text-sm sm:text-base">
+            Luar biasa! Kamu sudah sangat paham membedakan makna denotatif dan makna konotatif.
+          </div>
+
+          <!-- Review Jawaban Salah (Jika ada) -->
+          <div id="wrong-review-section" class="hidden">
+            <h3 class="text-lg sm:text-xl font-bold text-slate-800 mb-3 flex items-center gap-2">
+              <span>📝</span> Mari Pelajari Kembali Soal yang Masih Keliru:
+            </h3>
+            <div id="wrong-review-list" class="space-y-4 max-h-96 overflow-y-auto pr-1">
+              <!-- Daftar soal salah diisi via JS -->
+            </div>
+          </div>
+
+          <!-- Pesan Jika Sempurna (0 Salah) -->
+          <div id="perfect-review-section" class="hidden bg-emerald-50 border-2 border-emerald-300 rounded-2xl p-5 text-center">
+            <span class="text-4xl block mb-2">🌟</span>
+            <h3 class="text-lg font-bold text-emerald-800">Sempurna Tanpa Kesalahan!</h3>
+            <p class="text-sm text-emerald-700 mt-1">Semua 20 soal berhasil kamu jawab dengan tepat. Pertahankan prestasimu!</p>
+          </div>
+
+          <!-- Tombol Aksi Akhir -->
+          <div class="pt-4 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <button onclick="restartGame()"
+              class="w-full sm:w-auto btn-3d bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-display font-bold text-lg px-8 py-3.5 rounded-2xl flex items-center justify-center gap-2 cursor-pointer">
+              <span>🔄</span>
+              <span>Main Lagi</span>
+            </button>
+            <button onclick="backToHome()"
+              class="w-full sm:w-auto btn-3d bg-amber-100 hover:bg-amber-200 text-amber-900 border-2 border-amber-300 font-display font-bold text-lg px-6 py-3.5 rounded-2xl flex items-center justify-center gap-2 cursor-pointer">
+              <span>🏠</span>
+              <span>Halaman Utama</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // =========================================================================
+    // 1. BANK SOAL (TEPAT 20 BUTIR SOAL - MATERI KELAS 6 SD)
+    // =========================================================================
+    const BANK_SOAL = [
+      // --- Tipe A: Identifikasi Denotatif vs Konotatif ---
+      {
+        id: 1,
+        category: "Identifikasi Makna",
+        typeLabel: "Tentukan Jenis Makna Kata",
+        question: 'Perhatikan kalimat berikut:<br>“Adik menangis karena <span class="highlight-word">tangan kanan</span>nya terkilir saat bermain bola.”<br>Frasa bercetak tebal pada kalimat tersebut memiliki makna ....',
+        options: [
+          "Denotatif, karena bermakna anggota tubuh bagian kanan yang sebenarnya",
+          "Konotatif, karena bermakna orang kepercayaan",
+          "Konotatif, karena merupakan ungkapan kesedihan",
+          "Denotatif, karena bermakna suka menolong orang lain"
+        ],
+        correctIndex: 0,
+        explanation: 'Frasa "tangan kanan" pada kalimat tersebut merujuk pada bagian tubuh manusia yang sebenarnya (anggota gerak sebelah kanan), sehingga bermakna denotatif.'
+      },
+      {
+        id: 2,
+        category: "Identifikasi Makna",
+        typeLabel: "Tentukan Jenis Makna Kata",
+        question: 'Perhatikan kalimat berikut:<br>“Pak Danu dipercaya menjadi <span class="highlight-word">tangan kanan</span> pimpinan perusahaan karena kejujurannya.”<br>Frasa bercetak tebal tersebut mengandung makna ....',
+        options: [
+          "Denotatif, artinya bagian tubuh sebelah kanan",
+          "Konotatif, artinya orang kepercayaan atau pembantu utama",
+          "Denotatif, artinya pekerja yang rajin menulis",
+          "Konotatif, artinya orang yang suka memberi hadiah"
+        ],
+        correctIndex: 1,
+        explanation: 'Ungkapan "tangan kanan" di sini bukan bagian tubuh, melainkan kiasan yang berarti orang kepercayaan. Oleh karena itu, maknanya adalah konotatif.'
+      },
+      {
+        id: 3,
+        category: "Identifikasi Makna",
+        typeLabel: "Tentukan Jenis Makna Kata",
+        question: 'Perhatikan kalimat berikut:<br>“Ibu memetik <span class="highlight-word">bunga melati</span> yang sedang mekar di halaman rumah.”<br>Makna kata bercetak tebal pada kalimat di atas adalah ....',
+        options: [
+          "Makna konotatif, artinya gadis yang paling cantik",
+          "Makna konotatif, artinya sesuatu yang harum namanya",
+          "Makna denotatif, artinya bagian tumbuhan yang berwarna putih dan harum",
+          "Makna denotatif, artinya hiasan di dalam kamar"
+        ],
+        correctIndex: 2,
+        explanation: '"Bunga melati" pada kalimat tersebut mengacu pada tumbuhan bunga yang sebenarnya di halaman rumah, sehingga termasuk makna denotatif.'
+      },
+      {
+        id: 4,
+        category: "Identifikasi Makna",
+        typeLabel: "Tentukan Jenis Makna Kata",
+        question: 'Perhatikan kalimat berikut:<br>“Sari menjadi <span class="highlight-word">bunga desa</span> karena parasnya yang cantik dan tutur katanya yang sopan.”<br>Frasa bercetak tebal tersebut memiliki makna ....',
+        options: [
+          "Denotatif, artinya penjual bunga di desa",
+          "Denotatif, artinya taman bunga milik warga desa",
+          "Konotatif, artinya gadis yang paling cantik dan dikagumi di desanya",
+          "Konotatif, artinya anak kepala desa yang rajin menanam bunga"
+        ],
+        correctIndex: 2,
+        explanation: '"Bunga desa" adalah ungkapan bermakna kiasan (konotatif) yang artinya gadis paling cantik atau idola di suatu desa.'
+      },
+      {
+        id: 5,
+        category: "Identifikasi Makna",
+        typeLabel: "Tentukan Jenis Makna Kata",
+        question: 'Perhatikan kalimat berikut:<br>“Setelah berolahraga di bawah terik matahari, <span class="highlight-word">kepala</span> Riko terasa <span class="highlight-word">panas</span>.”<br>Kata "panas" pada kalimat tersebut bermakna ....',
+        options: [
+          "Konotatif, artinya sedang marah besar",
+          "Denotatif, artinya bersuhu tinggi atau terasa hangat sekali",
+          "Konotatif, artinya iri hati melihat teman",
+          "Denotatif, artinya suasana sedang genting"
+        ],
+        correctIndex: 1,
+        explanation: 'Kata "panas" pada kalimat ini menunjukkan suhu tubuh sebenarnya akibat berolahraga di bawah matahari, sehingga bermakna denotatif.'
+      },
+
+      // --- Tipe B: Arti Ungkapan Bermakna Konotatif ---
+      {
+        id: 6,
+        category: "Arti Ungkapan Konotatif",
+        typeLabel: "Memahami Makna Ungkapan",
+        question: '“Ayah rela <span class="highlight-word">banting tulang</span> setiap hari demi membiayai sekolah anak-anaknya.”<br>Arti ungkapan bercetak tebal pada kalimat tersebut adalah ....',
+        options: [
+          "Berolahraga angkat beban",
+          "Bekerja keras dengan sekuat tenaga",
+          "Mengalami kecelakaan kerja",
+          "Bekerja sambil beristirahat"
+        ],
+        correctIndex: 1,
+        explanation: 'Ungkapan "banting tulang" memiliki makna konotatif yaitu bekerja keras membanting tenaga demi memenuhi kebutuhan hidup.'
+      },
+      {
+        id: 7,
+        category: "Arti Ungkapan Konotatif",
+        typeLabel: "Memahami Makna Ungkapan",
+        question: '“Paman pulang dari Bandung membawa <span class="highlight-word">buah tangan</span> berupa bolu susu untuk kami.”<br>Makna konotatif dari frasa "buah tangan" adalah ....',
+        options: [
+          "Oleh-oleh atau hadiah",
+          "Buah-buahan segar dari kebun",
+          "Hasil kerajinan tangan",
+          "Tanaman buah dalam pot"
+        ],
+        correctIndex: 0,
+        explanation: '"Buah tangan" adalah ungkapan bermakna konotatif yang artinya barang bawaan atau oleh-oleh sepulang dari bepergian.'
+      },
+      {
+        id: 8,
+        category: "Arti Ungkapan Konotatif",
+        typeLabel: "Memahami Makna Ungkapan",
+        question: '“Akibat sepi pembeli selama berbulan-bulan, toko kelontong itu akhirnya terpaksa <span class="highlight-word">gulung tikar</span>.”<br>Ungkapan "gulung tikar" bermakna ....',
+        options: [
+          "Membersihkan lantai toko",
+          "Pindah ke tempat yang lebih luas",
+          "Bangkrut atau menutup usahanya",
+          "Menjual tikar dan karpet"
+        ],
+        correctIndex: 2,
+        explanation: '"Gulung tikar" merupakan ungkapan bermakna konotatif yang berarti mengalami kebangkrutan sehingga harus menutup usaha.'
+      },
+      {
+        id: 9,
+        category: "Arti Ungkapan Konotatif",
+        typeLabel: "Memahami Makna Ungkapan",
+        question: '“Meskipun menjadi juara kelas, Dina tidak pernah <span class="highlight-word">tinggi hati</span> kepada teman-temannya.”<br>Arti ungkapan "tinggi hati" adalah ....',
+        options: [
+          "Sombong atau angkuh",
+          "Sangat bersemangat",
+          "Mudah tersinggung",
+          "Pemaaf dan penyabar"
+        ],
+        correctIndex: 0,
+        explanation: '"Tinggi hati" (sama dengan besar kepala) adalah ungkapan bermakna konotatif yang berarti sombong atau merasa dirinya lebih hebat dari orang lain.'
+      },
+      {
+        id: 10,
+        category: "Arti Ungkapan Konotatif",
+        typeLabel: "Memahami Makna Ungkapan",
+        question: '“Bima dikenal sebagai anak yang <span class="highlight-word">ringan tangan</span> karena selalu sigap membantu guru dan teman yang kesulitan.”<br>Makna ungkapan "ringan tangan" pada kalimat tersebut adalah ....',
+        options: [
+          "Suka mengambil barang orang lain",
+          "Suka menolong atau membantu",
+          "Tangannya tidak kuat mengangkat beban",
+          "Cepat dalam menulis pelajaran"
+        ],
+        correctIndex: 1,
+        explanation: '"Ringan tangan" bermakna konotatif suka menolong atau rajin membantu. (Hati-hati, jangan tertukar dengan "panjang tangan" yang artinya suka mencuri).'
+      },
+      {
+        id: 11,
+        category: "Arti Ungkapan Konotatif",
+        typeLabel: "Memahami Makna Ungkapan",
+        question: '“Setiap masalah di kelas sebaiknya diselesaikan dengan <span class="highlight-word">kepala dingin</span> agar tidak terjadi pertengkaran.”<br>Arti ungkapan "kepala dingin" adalah ....',
+        options: [
+          "Mengompres kepala dengan es",
+          "Sabar, tenang, dan tidak terbawa emosi",
+          "Diam saja tanpa memberi pendapat",
+          "Berpikir saat cuaca sedang hujan"
+        ],
+        correctIndex: 1,
+        explanation: '"Kepala dingin" merupakan makna konotatif yang artinya bersikap tenang, sabar, dan berpikiran jernih saat menghadapi masalah.'
+      },
+      {
+        id: 12,
+        category: "Arti Ungkapan Konotatif",
+        typeLabel: "Memahami Makna Ungkapan",
+        question: '“Warga di kampung itu resah karena ada pencuri yang <span class="highlight-word">panjang tangan</span>.”<br>Makna konotatif dari ungkapan "panjang tangan" adalah ....',
+        options: [
+          "Memiliki lengan yang sangat panjang",
+          "Suka menjangkau benda yang tinggi",
+          "Suka mencuri barang milik orang lain",
+          "Suka memberi sedekah kepada tetangga"
+        ],
+        correctIndex: 2,
+        explanation: '"Panjang tangan" adalah kiasan bermakna konotatif yang artinya suka mencuri atau mengambil hak orang lain.'
+      },
+      {
+        id: 13,
+        category: "Arti Ungkapan Konotatif",
+        typeLabel: "Memahami Makna Ungkapan",
+        question: '“Raka dijuluki <span class="highlight-word">kutu buku</span> karena setiap jam istirahat ia selalu membaca di perpustakaan.”<br>Arti ungkapan "kutu buku" adalah ....',
+        options: [
+          "Serangga kecil yang hidup di kertas buku",
+          "Orang yang sangat gemar membaca buku",
+          "Anak yang malas merapikan buku pelajaran",
+          "Penjaga perpustakaan sekolah"
+        ],
+        correctIndex: 1,
+        explanation: '"Kutu buku" adalah ungkapan konotatif yang ditujukan kepada seseorang yang sangat suka dan rajin membaca buku.'
+      },
+      {
+        id: 14,
+        category: "Arti Ungkapan Konotatif",
+        typeLabel: "Memahami Makna Ungkapan",
+        question: '“Kasus pencurian itu akhirnya dibawa ke <span class="highlight-word">meja hijau</span> untuk diadili.”<br>Makna konotatif dari "meja hijau" adalah ....',
+        options: [
+          "Meja belajar yang dicat warna hijau",
+          "Meja tempat bermain tenis meja",
+          "Pengadilan atau tempat mengadili perkara",
+          "Ruang rapat kepala sekolah"
+        ],
+        correctIndex: 2,
+        explanation: '"Meja hijau" dalam istilah bahasa Indonesia merupakan makna konotatif yang berarti pengadilan.'
+      },
+      {
+        id: 15,
+        category: "Arti Ungkapan Konotatif",
+        typeLabel: "Memahami Makna Ungkapan",
+        question: '“Kemenangan tim sepak bola SD Nusantara di tingkat nasional menjadi <span class="highlight-word">buah bibir</span> masyarakat.”<br>Arti ungkapan "buah bibir" adalah ....',
+        options: [
+          "Bahan pembicaraan banyak orang",
+          "Makanan penutup setelah makan siang",
+          "Ucapan janji yang tidak ditepati",
+          "Sariawan di bagian bibir"
+        ],
+        correctIndex: 0,
+        explanation: '"Buah bibir" adalah ungkapan konotatif yang berarti sesuatu atau seseorang yang sedang ramai dibicarakan orang banyak.'
+      },
+
+      // --- Tipe C: Memilih Kalimat Bermakna Denotatif / Konotatif ---
+      {
+        id: 16,
+        category: "Memilih Kalimat Tepat",
+        typeLabel: "Pilih Kalimat Bermakna Konotatif",
+        question: 'Manakah di antara kalimat berikut yang menggunakan kata bercetak tebal dalam <span class="highlight-word">makna konotatif</span>?',
+        options: [
+          "Ibu merebus air hingga mendidih dan terasa sangat <b>panas</b>.",
+          "Hati Dika terasa <b>panas</b> mendengar ejekan dari anak nakal itu.",
+          "Cuaca siang ini sangat <b>panas</b> sehingga pakaian cepat kering.",
+          "Kopi yang baru diseduh Ayah masih terlalu <b>panas</b> untuk diminum."
+        ],
+        correctIndex: 1,
+        explanation: 'Pada kalimat "Hati Dika terasa panas...", kata "panas" bermakna konotatif (kiasan) yang artinya marah atau kesal, bukan suhu panas yang sebenarnya.'
+      },
+      {
+        id: 17,
+        category: "Memilih Kalimat Tepat",
+        typeLabel: "Pilih Kalimat Bermakna Denotatif",
+        question: 'Manakah kalimat berikut yang menggunakan kata <span class="highlight-word">keras</span> dalam <span class="highlight-word">makna denotatif</span> (sebenarnya)?',
+        options: [
+          "Anak itu memang <b>keras</b> kepala sehingga sulit dinasihati.",
+          "Nenek memiliki tekad yang <b>keras</b> untuk sembuh dari sakitnya.",
+          "Batu kali itu sangat <b>keras</b> sehingga tidak mudah dipecahkan.",
+          "Suara teriakan penonton membuat suasana semakin <b>keras</b> dan tegang."
+        ],
+        correctIndex: 2,
+        explanation: '"Batu kali itu sangat keras" menunjukkan sifat benda padat yang sebenarnya (tidak lunak), sehingga bermakna denotatif.'
+      },
+      {
+        id: 18,
+        category: "Memilih Kalimat Tepat",
+        typeLabel: "Pilih Kalimat Bermakna Konotatif",
+        question: 'Bacalah keempat kalimat berikut dengan teliti! Kalimat yang mengandung <span class="highlight-word">makna konotatif</span> adalah ....',
+        options: [
+          "Dokter sedang memeriksa detak jantung dan <b>hati</b> pasien di rumah sakit.",
+          "Siti merasa <b>besar hati</b> karena karyanya dipuji oleh dewan juri.",
+          "Paman membeli <b>kursi</b> kayu jati di toko mebel dekat pasar.",
+          "Adik memakai <b>kacamata</b> hitam saat berlibur ke pantai."
+        ],
+        correctIndex: 1,
+        explanation: 'Frasa "besar hati" pada kalimat B bermakna konotatif yang artinya bangga atau gembira, bukan ukuran organ hati yang membesar.'
+      },
+      {
+        id: 19,
+        category: "Arti Ungkapan Konotatif",
+        typeLabel: "Memahami Makna Ungkapan",
+        question: '“Lagu ciptaan musisi muda itu sedang <span class="highlight-word">naik daun</span> dan disukai banyak anak-anak.”<br>Ungkapan "naik daun" pada kalimat tersebut memiliki makna konotatif yaitu ....',
+        options: [
+          "Ulat yang sedang merayap naik ke atas daun",
+          "Sedang terkenal atau populer",
+          "Harga sayuran di pasar sedang naik",
+          "Memanjat pohon yang rindang"
+        ],
+        correctIndex: 1,
+        explanation: '"Naik daun" merupakan makna konotatif yang artinya sedang populer, terkenal, atau berada di puncak ketenaran.'
+      },
+      {
+        id: 20,
+        category: "Memilih Kalimat Tepat",
+        typeLabel: "Pilih Kalimat Bermakna Denotatif",
+        question: 'Manakah kalimat yang menggunakan kata <span class="highlight-word">kambing hitam</span> dalam <span class="highlight-word">makna denotatif</span>?',
+        options: [
+          "Penjaga gawang itu dijadikan <b>kambing hitam</b> atas kekalahan timnya.",
+          "Jangan suka mencari <b>kambing hitam</b> ketika kamu berbuat salah.",
+          "Kakek memelihara dua ekor <b>kambing hitam</b> dan tiga ekor sapi di kandang.",
+          "Sinta sedih karena selalu menjadi <b>kambing hitam</b> di keluarganya."
+        ],
+        correctIndex: 2,
+        explanation: 'Pada kalimat C, "kambing hitam" merujuk langsung pada hewan ternak kambing yang bulunya berwarna hitam (makna denotatif/sebenarnya).'
+      }
+    ];
+
+    // =========================================================================
+    // 2. VARIABEL STATUS PERMAINAN
+    // =========================================================================
+    let gameQuestions = [];
+    let currentIndex = 0;
+    let score = 0;
+    let correctCount = 0;
+    let wrongCount = 0;
+    let streak = 0;
+    let maxStreak = 0;
+    let playerName = "Petualang Kata";
+    let isAnswered = false;
+    let wrongHistory = []; // Menyimpan soal yang dijawab salah untuk review akhir
+    let soundEnabled = true;
+    let audioCtx = null;
+    let speechSynth = window.speechSynthesis; // Menambahkan API Web Speech untuk membaca teks
+
+    // =========================================================================
+    // 3. EFEK SUARA (WEB AUDIO API - TANPA URL EKSTERNAL)
+    // =========================================================================
+    function initAudio() {
+      if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (AudioContext) {
+          audioCtx = new AudioContext();
+        }
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      const icon = document.getElementById('sound-icon');
+      const text = document.getElementById('sound-text');
+      if (soundEnabled) {
+        icon.textContent = '🔊';
+        text.textContent = 'Suara Aktif';
+        playClickSound();
+        // Jika sedang di layar kuis, bacakan ulang soal
+        if (!document.getElementById('screen-quiz').classList.contains('hidden') && !isAnswered) {
+          speakText(gameQuestions[currentIndex].question);
+        }
+      } else {
+        icon.textContent = '🔇';
+        text.textContent = 'Suara Mati';
+        if (speechSynth) speechSynth.cancel(); // Matikan pembacaan soal
+      }
+    }
+
+    function playTone(freq, type, duration, startTimeOffset = 0, gainVal = 0.15) {
+      if (!soundEnabled) return;
+      try {
+        initAudio();
+        if (!audioCtx) return;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime + startTimeOffset);
+        gain.gain.setValueAtTime(gainVal, audioCtx.currentTime + startTimeOffset);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + startTimeOffset + duration);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.start(audioCtx.currentTime + startTimeOffset);
+        osc.stop(audioCtx.currentTime + startTimeOffset + duration);
+      } catch (e) {
+        // Abaikan jika browser memblokir autoplay audio sebelum interaksi
+      }
+    }
+
+    function playClickSound() {
+      playTone(520, 'sine', 0.08, 0, 0.1);
+    }
+
+    function playCorrectSound() {
+      playTone(523.25, 'triangle', 0.14, 0, 0.18);    // C5
+      playTone(659.25, 'triangle', 0.14, 0.1, 0.18);  // E5
+      playTone(783.99, 'triangle', 0.25, 0.2, 0.2);   // G5
+    }
+
+    function playWrongSound() {
+      playTone(260, 'sawtooth', 0.18, 0, 0.12);
+      playTone(210, 'sawtooth', 0.26, 0.14, 0.12);
+    }
+
+    function playWinSound() {
+      playTone(523.25, 'triangle', 0.15, 0, 0.18);
+      playTone(659.25, 'triangle', 0.15, 0.12, 0.18);
+      playTone(783.99, 'triangle', 0.15, 0.24, 0.18);
+      playTone(1046.5, 'triangle', 0.4, 0.36, 0.22);
+    }
+
+    // Fungsi membaca teks (Text-to-Speech) dengan suara laki-laki dewasa (Bapak Guru)
+    function speakText(htmlText) {
+      if (!soundEnabled || !speechSynth) return;
+      
+      // Hentikan suara yang sedang berjalan sebelumnya
+      speechSynth.cancel();
+
+      // Hilangkan tag HTML (<br>, <span>, dll) agar yang dibaca hanya teks murni
+      const tempDiv = document.createElement("div");
+      tempDiv.innerHTML = htmlText;
+      let textToSpeak = tempDiv.textContent || tempDiv.innerText || "";
+
+      // Bersihkan karakter tertentu agar pengucapan natural
+      textToSpeak = textToSpeak.replace(/_/g, "").replace(/\.\.\.\./g, "titik titik");
+
+      const utterance = new SpeechSynthesisUtterance(textToSpeak);
+      utterance.lang = 'id-ID'; // Bahasa Indonesia
+      utterance.rate = 0.92;    // Kecepatan bicara jelas untuk siswa SD
+      utterance.pitch = 0.55;   // Pitch rendah (0.5 - 0.7) agar terdengar seperti suara Bapak Guru
+
+      // Pilih suara laki-laki bahasa Indonesia jika tersedia di browser/OS
+      const voices = speechSynth.getVoices();
+      const idMaleVoice = voices.find(v =>
+        v.lang.toLowerCase().includes('id') &&
+        (v.name.toLowerCase().includes('male') || v.name.toLowerCase().includes('ardi') || v.name.toLowerCase().includes('laki'))
+      );
+      const idAnyVoice = voices.find(v => v.lang.toLowerCase().includes('id'));
+
+      if (idMaleVoice) {
+        utterance.voice = idMaleVoice;
+      } else if (idAnyVoice) {
+        utterance.voice = idAnyVoice;
+      }
+
+      speechSynth.speak(utterance);
+    }
+
+    // Fungsi tombol "Dengarkan Soal Lagi"
+    function replayQuestionAudio() {
+      if (!soundEnabled) {
+        toggleSound(); // Otomatis aktifkan suara jika sedang dimatikan
+        return;
+      }
+      if (gameQuestions[currentIndex]) {
+        speakText(gameQuestions[currentIndex].question);
+      }
+    }
+
+    // Pastikan daftar suara browser dimuat lebih awal
+    if (speechSynth && speechSynth.onvoiceschanged !== undefined) {
+      speechSynth.onvoiceschanged = () => speechSynth.getVoices();
+    }
+
+    // =========================================================================
+    // 4. LOGIKA UTAMA PERMAINAN
+    // =========================================================================
+    function shuffleArray(arr) {
+      const copy = [...arr];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function startGame() {
+      initAudio();
+      playClickSound();
+
+      const nameInput = document.getElementById('player-name').value.trim();
+      playerName = nameInput !== "" ? nameInput : "Petualang Kata";
+
+      const shouldShuffle = document.getElementById('shuffle-toggle').checked;
+      gameQuestions = shouldShuffle ? shuffleArray(BANK_SOAL) : [...BANK_SOAL];
+
+      // Reset skor dan status
+      currentIndex = 0;
+      score = 0;
+      correctCount = 0;
+      wrongCount = 0;
+      streak = 0;
+      maxStreak = 0;
+      wrongHistory = [];
+
+      // Pindah layar ke Quiz
+      document.getElementById('screen-start').classList.add('hidden');
+      document.getElementById('screen-result').classList.add('hidden');
+      document.getElementById('screen-quiz').classList.remove('hidden');
+
+      updateStatusBar();
+      renderQuestion();
+    }
+
+    function updateStatusBar() {
+      const total = gameQuestions.length;
+      document.getElementById('q-current').textContent = currentIndex + 1;
+      document.getElementById('q-total').textContent = total;
+      document.getElementById('score-display').textContent = score;
+      document.getElementById('streak-count').textContent = streak;
+
+      // Efek visual kombo aktif
+      const streakBadge = document.getElementById('streak-badge');
+      if (streak >= 2) {
+        streakBadge.classList.add('ring-2', 'ring-orange-400', 'scale-105', 'bg-orange-200');
+      } else {
+        streakBadge.classList.remove('ring-2', 'ring-orange-400', 'scale-105', 'bg-orange-200');
+      }
+
+      // Update Progress Bar
+      const progressPercent = ((currentIndex + 1) / total) * 100;
+      document.getElementById('progress-bar').style.width = `${progressPercent}%`;
+    }
+
+    function renderQuestion() {
+      isAnswered = false;
+      const q = gameQuestions[currentIndex];
+
+      // Animasi kartu soal
+      const card = document.getElementById('question-card');
+      card.classList.remove('animate-pop');
+      void card.offsetWidth; // trigger reflow
+      card.classList.add('animate-pop');
+
+      // Sembunyikan feedback box
+      const feedbackBox = document.getElementById('feedback-box');
+      feedbackBox.classList.add('hidden');
+
+      // Tampilkan teks kategori dan soal
+      document.getElementById('q-category-badge').textContent = q.category;
+      document.getElementById('q-type-label').textContent = q.typeLabel;
+      document.getElementById('question-text').innerHTML = q.question;
+
+      // Render 4 pilihan jawaban
+      const optionsContainer = document.getElementById('options-container');
+      optionsContainer.innerHTML = '';
+
+      const letters = ['A', 'B', 'C', 'D'];
+      q.options.forEach((optText, idx) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.id = `opt-btn-${idx}`;
+        btn.onclick = () => selectAnswer(idx);
+        btn.className = 'option-card w-full text-left bg-slate-50 hover:bg-sky-50 border-2 border-slate-200 hover:border-sky-400 rounded-2xl p-4 flex items-center gap-3.5 cursor-pointer group';
+
+        btn.innerHTML = `
+          <span id="opt-letter-${idx}" class="w-10 h-10 rounded-xl bg-white border-2 border-slate-300 group-hover:border-sky-400 group-hover:bg-sky-500 group-hover:text-white font-display font-bold text-lg flex items-center justify-center shrink-0 transition-colors text-slate-700">
+            ${letters[idx]}
+          </span>
+          <span class="text-base sm:text-lg font-bold text-slate-800 leading-snug flex-1">
+            ${optText}
+          </span>
+          <span id="opt-status-${idx}" class="text-2xl hidden"></span>
+        `;
+
+        optionsContainer.appendChild(btn);
+      });
+
+      // Ubah teks tombol lanjut pada soal terakhir
+      const btnNextText = document.getElementById('btn-next-text');
+      if (currentIndex === gameQuestions.length - 1) {
+        btnNextText.textContent = "Lihat Hasil Akhir";
+      } else {
+        btnNextText.textContent = "Soal Berikutnya";
+      }
+
+      // Mulai bacakan soal dengan suara laki-laki
+      speakText(q.question);
+    }
+
+    function selectAnswer(selectedIndex) {
+      if (isAnswered) return;
+      isAnswered = true;
+      if (speechSynth) speechSynth.cancel(); // Hentikan bacaan soal saat anak sudah menjawab
+
+      const q = gameQuestions[currentIndex];
+      const isCorrect = selectedIndex === q.correctIndex;
+
+      // Nonaktifkan semua tombol opsi
+      q.options.forEach((_, idx) => {
+        const btn = document.getElementById(`opt-btn-${idx}`);
+        btn.disabled = true;
+        btn.classList.remove('hover:bg-sky-50', 'hover:border-sky-400', 'cursor-pointer');
+        btn.classList.add('cursor-default');
+      });
+
+      // Sorot jawaban benar (hijau)
+      const correctBtn = document.getElementById(`opt-btn-${q.correctIndex}`);
+      const correctLetter = document.getElementById(`opt-letter-${q.correctIndex}`);
+      const correctStatus = document.getElementById(`opt-status-${q.correctIndex}`);
+
+      correctBtn.classList.remove('bg-slate-50', 'border-slate-200');
+      correctBtn.classList.add('bg-emerald-100', 'border-emerald-500');
+      correctLetter.classList.remove('bg-white', 'border-slate-300', 'text-slate-700');
+      correctLetter.classList.add('bg-emerald-600', 'border-emerald-600', 'text-white');
+      correctStatus.textContent = '✅';
+      correctStatus.classList.remove('hidden');
+
+      const feedbackBox = document.getElementById('feedback-box');
+      const feedbackIcon = document.getElementById('feedback-icon');
+      const feedbackTitle = document.getElementById('feedback-title');
+      const feedbackExplanation = document.getElementById('feedback-explanation');
+
+      // Reset warna feedback box
+      feedbackBox.classList.remove('hidden', 'bg-emerald-50', 'border-emerald-300', 'bg-rose-50', 'border-rose-300');
+
+      if (isCorrect) {
+        playCorrectSound();
+        score += 5; // 20 soal x 5 poin = 100 poin maksimal
+        correctCount++;
+        streak++;
+        if (streak > maxStreak) maxStreak = streak;
+
+        feedbackBox.classList.add('bg-emerald-50', 'border-emerald-300');
+        feedbackIcon.textContent = streak >= 3 ? '🔥' : '🎉';
+        feedbackTitle.className = 'text-lg sm:text-xl font-display font-bold mb-1 text-emerald-800';
+        feedbackTitle.textContent = streak >= 3
+          ? `Luar Biasa! Benar ${streak}x Berturut-turut! (+5 Poin)`
+          : 'Hebat! Jawabanmu Benar! (+5 Poin)';
+      } else {
+        playWrongSound();
+        wrongCount++;
+        streak = 0;
+
+        // Sorot jawaban salah yang dipilih user (merah)
+        const selectedBtn = document.getElementById(`opt-btn-${selectedIndex}`);
+        const selectedLetter = document.getElementById(`opt-letter-${selectedIndex}`);
+        const selectedStatus = document.getElementById(`opt-status-${selectedIndex}`);
+
+        selectedBtn.classList.remove('bg-slate-50', 'border-slate-200');
+        selectedBtn.classList.add('bg-rose-100', 'border-rose-500', 'animate-shake');
+        selectedLetter.classList.remove('bg-white', 'border-slate-300', 'text-slate-700');
+        selectedLetter.classList.add('bg-rose-600', 'border-rose-600', 'text-white');
+        selectedStatus.textContent = '❌';
+        selectedStatus.classList.remove('hidden');
+
+        feedbackBox.classList.add('bg-rose-50', 'border-rose-300');
+        feedbackIcon.textContent = '💡';
+        feedbackTitle.className = 'text-lg sm:text-xl font-display font-bold mb-1 text-rose-800';
+        feedbackTitle.textContent = 'Ups, Kurang Tepat! Yuk Cek Pembahasannya:';
+
+        // Catat ke riwayat salah untuk layar hasil
+        wrongHistory.push({
+          number: currentIndex + 1,
+          question: q.question,
+          userAnswer: q.options[selectedIndex],
+          correctAnswer: q.options[q.correctIndex],
+          explanation: q.explanation
+        });
+      }
+
+      feedbackExplanation.innerHTML = q.explanation;
+      updateStatusBar();
+
+      // Scroll halus ke bagian pembahasan jika di layar HP kecil
+      setTimeout(() => {
+        feedbackBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 100);
+    }
+
+    function nextQuestion() {
+      playClickSound();
+      if (currentIndex < gameQuestions.length - 1) {
+        currentIndex++;
+        updateStatusBar();
+        renderQuestion();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        showResults();
+      }
+    }
+
+    // =========================================================================
+    // 5. LAYAR HASIL AKHIR & REVIEW
+    // =========================================================================
+    function showResults() {
+      if (speechSynth) speechSynth.cancel();
+      playWinSound();
+      document.getElementById('screen-quiz').classList.add('hidden');
+      document.getElementById('screen-result').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      document.getElementById('result-player-name').textContent = playerName;
+      document.getElementById('result-score').textContent = score;
+      document.getElementById('result-correct').textContent = correctCount;
+      document.getElementById('result-wrong').textContent = wrongCount;
+      document.getElementById('result-max-streak').textContent = maxStreak;
+
+      // Predikat berdasarkan skor (0 - 100)
+      const trophyEl = document.getElementById('result-trophy');
+      const titleEl = document.getElementById('result-title');
+      const msgEl = document.getElementById('result-message-box');
+
+      if (score >= 90) {
+        trophyEl.textContent = '🏆';
+        titleEl.textContent = 'Master Bahasa Indonesia!';
+        msgEl.textContent = 'Luar biasa! Pemahamanmu tentang makna denotatif dan konotatif sangat tajam. Kamu siap menghadapi ujian!';
+        launchConfetti();
+      } else if (score >= 75) {
+        trophyEl.textContent = '🥇';
+        titleEl.textContent = 'Penjelajah Kata Hebat!';
+        msgEl.textContent = 'Bagus sekali! Kamu sudah menguasai sebagian besar materi makna denotatif dan konotatif.';
+        launchConfetti();
+      } else if (score >= 60) {
+        trophyEl.textContent = '🥈';
+        titleEl.textContent = 'Petualang Kata Tangguh!';
+        msgEl.textContent = 'Cukup baik! Yuk baca kembali pembahasan di bawah agar nilaimu semakin sempurna di percobaan berikutnya.';
+      } else {
+        trophyEl.textContent = '📚';
+        titleEl.textContent = 'Terus Semangat Belajar!';
+        msgEl.textContent = 'Jangan menyerah! Pelajari kembali perbedaan makna sebenarnya (denotatif) dan makna kiasan (konotatif) di bawah ini, lalu coba lagi ya!';
+      }
+
+      // Tampilkan ringkasan soal yang salah jika ada
+      const wrongSection = document.getElementById('wrong-review-section');
+      const perfectSection = document.getElementById('perfect-review-section');
+      const wrongList = document.getElementById('wrong-review-list');
+
+      if (wrongHistory.length > 0) {
+        wrongSection.classList.remove('hidden');
+        perfectSection.classList.add('hidden');
+        wrongList.innerHTML = '';
+
+        wrongHistory.forEach((item) => {
+          const card = document.createElement('div');
+          card.className = 'bg-slate-50 border-2 border-slate-200 rounded-2xl p-4 text-sm sm:text-base';
+          card.innerHTML = `
+            <div class="font-bold text-slate-800 mb-2">
+              <span class="inline-block bg-rose-500 text-white text-xs font-extrabold px-2.5 py-0.5 rounded-lg mr-1.5">Soal #${item.number}</span>
+              <div class="mt-1.5 leading-relaxed">${item.question}</div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 my-2.5 text-xs sm:text-sm">
+              <div class="bg-rose-100/80 border border-rose-300 text-rose-900 p-2.5 rounded-xl">
+                <span class="font-extrabold block">❌ Jawabanmu:</span>
+                ${item.userAnswer}
+              </div>
+              <div class="bg-emerald-100/80 border border-emerald-300 text-emerald-900 p-2.5 rounded-xl">
+                <span class="font-extrabold block">✅ Jawaban Benar:</span>
+                ${item.correctAnswer}
+              </div>
+            </div>
+            <div class="bg-white border border-slate-200 p-3 rounded-xl text-xs sm:text-sm text-slate-700">
+              <span class="font-extrabold text-sky-700">💡 Pembahasan:</span> ${item.explanation}
+            </div>
+          `;
+          wrongList.appendChild(card);
+        });
+      } else {
+        wrongSection.classList.add('hidden');
+        perfectSection.classList.remove('hidden');
+      }
+    }
+
+    function restartGame() {
+      if (speechSynth) speechSynth.cancel();
+      playClickSound();
+      startGame();
+    }
+
+    function backToHome() {
+      if (speechSynth) speechSynth.cancel();
+      playClickSound();
+      document.getElementById('screen-result').classList.add('hidden');
+      document.getElementById('screen-quiz').classList.add('hidden');
+      document.getElementById('screen-start').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // =========================================================================
+    // 6. ANIMASI CONFETTI PERAYAAN (RESPONSIF)
+    // =========================================================================
+    function launchConfetti() {
+      const canvas = document.getElementById('confetti-canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const colors = ['#38bdf8', '#facc15', '#4ade80', '#f472b6', '#a78bfa', '#fb923c'];
+      const particles = [];
+
+      for (let i = 0; i < 110; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height - canvas.height,
+          w: Math.random() * 10 + 6,
+          h: Math.random() * 6 + 4,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          speedY: Math.random() * 3 + 2,
+          speedX: Math.random() * 2 - 1,
+          angle: Math.random() * 360,
+          spin: Math.random() * 6 - 3
+        });
+      }
+
+      let frame = 0;
+      const maxFrames = 180;
+
+      function animateConfetti() {
+        frame++;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        particles.forEach((p) => {
+          p.y += p.speedY;
+          p.x += p.speedX;
+          p.angle += p.spin;
+
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate((p.angle * Math.PI) / 180);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+          ctx.restore();
+        });
+
+        if (frame < maxFrames) {
+          requestAnimationFrame(animateConfetti);
+        } else {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+      }
+
+      animateConfetti();
+    }
+
+    window.addEventListener('resize', () => {
+      const canvas = document.getElementById('confetti-canvas');
+      if (canvas) {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+    });
+  </script>
+</body>
+</html>
